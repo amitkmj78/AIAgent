@@ -36,15 +36,15 @@ if "messages" not in st.session_state:
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-    
+
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg['content'])
 
-if prompt:=st.chat_input(placeholder="What is machine learning?"):
+if prompt:=st.chat_input(placeholder="What is question today ?"):
     st.session_state.messages.append({"role":"user","content":prompt})
     st.chat_message("user").write(prompt)
 
-    llm=ChatGroq(groq_api_key="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",model_name="Llama3-8b-8192",streaming=True)
+    llm=ChatGroq(groq_api_key=api_key,model_name="Llama3-8b-8192",streaming=True)
     tools=[search,arxiv,wiki]
 
     search_agent=initialize_agent(tools,llm,agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,handling_parsing_errors=True)
