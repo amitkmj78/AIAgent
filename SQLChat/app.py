@@ -8,6 +8,7 @@ from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from sqlalchemy import create_engine
 import sqlite3
 from langchain_groq import ChatGroq
+import pandas as pd
 
 st.set_page_config(page_title="LangChain: Chat with SQL DB To Analyze Data", page_icon="🦜")
 st.title("🦜 LangChain: Chat with SQL DB")
@@ -28,7 +29,7 @@ if radio_opt.index(selected_opt)==1:
 else:
     db_uri=LOCALDB
 
-api_key=st.sidebar.text_input(label="GRoq API Key",type="password")
+api_key=st.sidebar.text_input(label="GRoq API Key" ,type="password")
 
 if not db_uri:
     st.info("Please enter the database information and uri")
@@ -63,6 +64,7 @@ toolkit=SQLDatabaseToolkit(db=db,llm=llm)
 
 agent=create_sql_agent(
     llm=llm,
+    
     toolkit=toolkit,
     verbose=True,
     agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION
@@ -70,13 +72,18 @@ agent=create_sql_agent(
     
 )
 
+
+
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "You are an SQL expert. Generate advanced SQL queries to analyze trends, calculate metrics, or detect anomalies. Use appropriate SQL functions like GROUP BY, AVG, SUM, or advanced clauses as required."}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
+
 user_query=st.chat_input(placeholder="Ask anything from the database")
+
+
 
 if user_query:
     st.session_state.messages.append({"role": "user", "content": user_query})
