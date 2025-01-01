@@ -36,3 +36,5 @@ pytube
 numexpr
 huggingface_hub
 pyodbc
+matplotlib 
+plotly
