@@ -5,7 +5,7 @@ ipykernel
 pypdf
 bs4
 arxiv
-pymupdf
+pymupdfpip list 
 wikipedia
 langchain-text-splitters
 langchain-openai
@@ -38,3 +38,7 @@ huggingface_hub
 pyodbc
 matplotlib 
 plotly
+validators
+youtube_transcript_api
+pytube
+unstructured
