@@ -1,1 +1,1 @@
-Please inatall all the required dependecies
+Please install all the required dependencies
